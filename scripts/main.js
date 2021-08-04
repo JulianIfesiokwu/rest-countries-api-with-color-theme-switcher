@@ -1,18 +1,19 @@
 const searchField = document.querySelector('.search__field');
 const resultsDiv = document.querySelector('.results');
+const selectedRegion = document.querySelector('#continents');
 
-
+// Seperate population value by thousands
 function thousands_separators(num) {
     let num_parts = num.toString();
     num_parts = num_parts.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return num_parts;
 }
 
+// Display all countries on document load
 function showCountries(data) {
     data.forEach((country) => {
         displayCountry(country)
-    })
-    
+    })    
 }
 
 const showSearchResults = async () => {
@@ -28,21 +29,50 @@ const showSearchResults = async () => {
     }
 }
 
+// Refine results based on countries
 function refineResults(allCountries) {
     let searchTerm = searchField.value;
     // Clear results container of previous searches
     resultsDiv.innerHTML = '';
+    // Reset region field
+    selectedRegion.value = 'none'
     // Loop through country list and display only countries that meet the search term
     allCountries.forEach((country) => {
         const countryName = (country.name).toLowerCase();
         // console.log('no problem')
         if(countryName.indexOf(searchTerm) !=-1) {
-            console.log('yes')
             displayCountry(country)
         } 
     })
 }
 
+// Show countries in region selected
+const showRegionCountries = async () => {
+    let regionValue = selectedRegion.value
+    if(regionValue === 'none') return
+    if(regionValue.length != 'none') {
+        // Reset search field value
+        searchField.value = ''
+        try {
+            const url = `https://restcountries.eu/rest/v2/region/${regionValue}`
+            const result = await fetch(url)
+            const regionData = await result.json()
+            // Clear previous results
+            resultsDiv.innerHTML = '';
+            // display results based on region
+
+            regionData.forEach((country) => {
+                displayCountry(country)
+            })
+            // showCountries(data)        
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+}
+
+// Display a country
 function displayCountry(country) {        
     let countryCard = document.createElement('div');
     countryCard.classList.add('country__card');
@@ -87,6 +117,7 @@ function displayCountry(country) {
     resultsDiv.appendChild(countryCard)
 }
 
+// Make API request to get all countries on document load
 const getCountries = async () => {
     try {
         const url = `https://restcountries.eu/rest/v2/all`
@@ -101,6 +132,7 @@ const getCountries = async () => {
 }
 
 // displays all countries on load
-// getCountries();
+getCountries();
 
 searchField.addEventListener('input', showSearchResults)
+selectedRegion.addEventListener('input', showRegionCountries)
