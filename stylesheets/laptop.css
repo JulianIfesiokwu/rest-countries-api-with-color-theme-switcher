@@ -1,0 +1,43 @@
+.container header, .container main{
+    padding: 1rem 3rem;
+}
+
+main .search {
+    padding: 0;
+}
+
+.search {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.search .search__container {
+    width: 40%;
+}
+
+.search .filter__container {
+    width: 30%;
+}
+
+main .results {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 2%;
+}
+
+.country__card {
+    flex: 20%;
+    cursor: pointer;
+    min-height: 350px;
+}
+
+.country__card .country__flag {
+    max-height: 50%;
+}
+
+/* .country__card .country__information {
+    flex: 1;
+} */

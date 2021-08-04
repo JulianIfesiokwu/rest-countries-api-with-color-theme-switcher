@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    font-family: 'Nunito Sans', sans-serif;
+
+    --Dark-Blue: hsl(209, 23%, 22%); /* -(Dark-Mode-Elements) */
+    --Very-Dark-Blue: hsl(207, 26%, 17%); /* -(Dark-Mode-Background) */
+    --Very-Dark-Blue: hsl(200, 15%, 8%); /* -(Light-Mode-Text) */
+    --Dark-Gray: hsl(0, 0%, 52%); /* -(Light-Mode-Input) */
+    --Very-Light-Gray: hsl(0, 0%, 98%);  /* -(Light-Mode-Background) */
+    --White: hsl(0, 0%, 100%);  /*-(Dark-Mode-Text-&-Light-Mode-Elements) */
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem 1rem 2rem 1rem;
+}
+
+main {
+    background-color: var(--Very-Light-Gray);
+    padding-top: 2rem;
+}
+
+.site__title {
+    font-weight: 800;
+}
+
+.search {
+    padding: 0.5rem 1rem;
+}
+
+.search__container {
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    padding: 1rem;
+    background-color: var(--White);
+    margin-bottom: 1rem;
+}
+
+.search__field {
+    border: none;
+    outline: none;
+    color: var(--Dark-Gray);
+    width: 90%;
+}
+
+.filter__container {
+    width: 60%;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--White);
+    margin-bottom: 1rem;
+}
+
+#continents{
+    padding: 1rem;
+    border: none;
+}
+
+select {
+    width: 100%;
+    outline: none;
+}
+
+.results {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.country__card {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    background-color: var(--White);
+    box-shadow: 3px 5px 3px 1px #aaaaaa;
+}
+
+.country__flag {
+    flex: 1;
+    border-radius: 10px 10px 0 0;
+}
+
+.country__img img{
+    width: 100%;
+    height: auto;
+    object-fit: fill;
+    display: block;
+    border-radius: 10px 10px 0 0;
+}
+
+.country__information {
+    padding: 1rem 2rem;
+    background-color: var(--White);
+    border-radius: 0 0 10px 10px;
+}
+
+.country__name {
+    font-weight: 800;
+    text-transform: capitalize;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+}

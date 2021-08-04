@@ -4,11 +4,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rest-countries-Api-with-color-theme-switcher</title>
+    <title>Rest-Countries Api</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"/>
     <link rel="stylesheet" media='screen and (min-width: 741px)'href="./stylesheets/laptop.css">
     <link rel="stylesheet" media='screen and (min-width: 320px)' href="./stylesheets/smartphones.css">
 </head>
 <body>
+
+    <div class="container">
+        <header>
+            <p class="site__title">Where in the world?</p>
+            <div class="theme-switch-wrapper">
+                <span id="toggle-icon">
+                    <span class="toggle-text">Light Mode</span>
+                    <i class="fas fa-sun"></i>
+                </span>
+                <label class="theme-switch">
+                    <input type="checkbox">
+                    <div class="slider round"></div>
+                </label>
+            </div>
+        </header>
+
+        <main>
+            <section class="search">
+                <div class="search__container">
+                    <i class="far fa-search search__icon"></i>
+                    <input type="search" class="search__field" placeholder="Search for a country...">
+                </div>
+
+                <div class="filter__container">
+                    <form>
+                        <!-- <label for="continents">Filter by Region</label> -->
+                        <select name="continents" id="continents">
+                          <option value="">Filter by Region</option>
+                          <option value="africa">Africa</option>
+                          <option value="americas">America</option>
+                          <option value="asia">Asia</option>
+                          <option value="europe">Europe</option>
+                          <option value="oceania">Oceania</option>
+                        </select>
+                      </form>
+                </div>
+
+            </section>
+
+            <section class="results">
+            </section>
+        </main>
+    </div>
     
 
 
