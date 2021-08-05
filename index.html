@@ -20,19 +20,21 @@
                     <i class="fas fa-sun"></i>
                 </span>
                 <label class="theme-switch">
-                    <input type="checkbox">
+                    <input type="checkbox" class="switch-theme">
                     <div class="slider round"></div>
                 </label>
             </div>
         </header>
 
         <main>
+            <!-- Search bar -->
             <section class="search">
                 <div class="search__container">
-                    <i class="far fa-search search__icon"></i>
+                    <img class='search-icon' src="./images/icon-search.svg" alt="search-icon">
                     <input type="search" class="search__field" placeholder="Search for a country...">
                 </div>
 
+                <!-- Filter Options -->
                 <div class="filter__container">
                     <form>
                         <!-- <label for="continents">Filter by Region</label> -->
@@ -49,9 +51,46 @@
 
             </section>
 
+            <!-- Search results -->
             <section class="results">
             </section>
+
+                    <!-- Country  Information-->
+        <section class="detailed-info">
+            <button class="back"><img class="back-arrow" src="./images/icon-left-arrow.svg">Back</button>
+
+            <div class="country__card__details">
+                <div class="country__flag">
+                    <span class="detailed__country__img"></span>
+                </div>
+                <div class="detailed__country__information">
+                    <div class="inner">
+                        <div class="details__1">
+                            <h2 class="country__name_2"></h2>
+                            <p class="title">Native Name: <span class="native__name"></span></p>
+                            <p class="title">Population: <span class="population"></span></p>
+                            <p class="title">Region: <span class="continent"></span></p>
+                            <p class="title">Sub Region: <span class="sub-region"></span></p>
+                            <p class="title">Capital: <span class="capital"></span></p>
+                        </div>
+                        <div class="details__2">
+                            <p class="title">Top Level Domain: <span class="domain"></span></p>
+                            <p class="title">Currencies: <span class="currencies"></span></p>
+                            <p class="title">Languages: <span class="languages"></span></p>
+                        </div>
+                    </div>
+                    <div class="border">
+                        <p class="title">Border Countries:</p>
+                        <div class="border__list">
+                        </div>    
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
         </main>
+
     </div>
     
 
