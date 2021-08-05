@@ -4,10 +4,10 @@ const selectedRegion = document.querySelector('#continents');
 const countryCard = document.querySelector('.country__card');
 const search = document.querySelector('.search');
 const detailedInfo = document.querySelector('.detailed-info');
-const switchTheme = document.querySelector('.switch-theme');
 const countryContent = document.querySelector('.country__content');
 const backBtn = document.querySelector('.back');
 const borderCountryList = document.querySelector('.border__list');
+const themeSwitch = document.querySelector('.theme-switch-wrapper');
 
 // Seperate population value by thousands
 function thousands_separators(num) {
@@ -107,8 +107,7 @@ function showDetailedCountry(countryData) {
     let imgContainer = document.createElement('img');
     imgContainer.setAttribute('src', `${countryData[0].flag}`);
     imgContainer.setAttribute('alt', `${countryData[0].name}`);
-    imgSpan.appendChild(imgContainer)
-    console.log(countryData[0])
+    imgSpan.appendChild(imgContainer);
     const countryName = document.querySelector('.country__name_2');
     countryName.textContent=`${countryData[0].name}`;
     const nativeName = document.querySelector('.native__name');
@@ -143,7 +142,7 @@ function showDetailedCountry(countryData) {
             const result = await fetch(url);
             const countryName = await result.json()
             // Create span element
-            let borderCountry = document.createElement('span');
+            let borderCountry = document.createElement('p');
             borderCountry.textContent=`${countryName.name}`;
             borderCountry.classList.add('border--countries');
             borderCountryList.append(borderCountry)
@@ -212,14 +211,50 @@ const getCountries = async () => {
     }
 }
 
-function changeTheme(e) {
-    console.log(e)
+function toggleTheme(e) {
+    const themeDescription = document.querySelector('.toggle-text');
+    const backArrow = document.querySelector('.back-arrow');
+
+    if(e.target.closest('.theme-switch-wrapper').classList.contains('light')) {
+        e.target.closest('.theme-switch-wrapper').classList.replace('light', 'dark');
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeDescription.textContent = 'Dark Mode';
+        // change header color
+        document.querySelector('header').style.background='var(--Dark-Blue)';
+        // change theme icon
+        document.querySelector('.theme-icon').classList.replace('fa-sun', 'fa-moon');
+        // change background of region select
+        selectedRegion.style.background = 'var(--Dark-Blue)';
+        // change background of all cards
+        const allCards = [...document.querySelectorAll('.country__card')];
+        allCards.forEach((card) => {
+            card.style.background='var(--Dark-Blue)';
+        });
+        // change background of back btn
+        backBtn.style.background='var(--Dark-Blue)';
+        backArrow.setAttribute('src', './images/icon-left-arrow white.svg');
+        // change background of search container
+        document.querySelector('.search__container').style.background='var(--Dark-Blue)';
+        // change background of border countries
+        const borderCountries = [...document.querySelectorAll('.border--countries')];
+        borderCountries.forEach((borderCountry) => {
+            borderCountry.style.background='var(--Dark-Blue)';
+        })
+    } else {
+        e.target.closest('.theme-switch-wrapper').classList.replace('dark', 'light');
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeDescription.textContent = 'Light Mode';
+        document.querySelector('.theme-icon').classList.replace('fa-moon', 'fa-sun');
+        backArrow.setAttribute('src', './images/icon-left-arrow.svg');
+        selectedRegion.style.background = 'var(--White)';
+        document.querySelector('.search__container').style.background='var(--White)'
+    }
 }
 
 function goBack() {
     resultsDiv.style.display='flex';
     detailedInfo.style.display='none';
-    search.style.display = 'flex';
+    search.style.display = 'inline-flex';
     const imgSpan = document.querySelector('.detailed__country__img');
     // remove previous flags if any
     while (imgSpan.hasChildNodes()) {  
@@ -237,5 +272,5 @@ getCountries();
 searchField.addEventListener('input', showSearchResults)
 selectedRegion.addEventListener('input', showRegionCountries)
 resultsDiv.addEventListener('click', getDetailedInformation)
-switchTheme.addEventListener('click', changeTheme);
-backBtn.addEventListener('click', goBack)
+backBtn.addEventListener('click', goBack);
+themeSwitch.addEventListener('click', toggleTheme)

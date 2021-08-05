@@ -14,15 +14,11 @@
     <div class="container">
         <header>
             <p class="site__title">Where in the world?</p>
-            <div class="theme-switch-wrapper">
+            <div class="theme-switch-wrapper light">
                 <span id="toggle-icon">
                     <span class="toggle-text">Light Mode</span>
-                    <i class="fas fa-sun"></i>
+                    <i class="theme-icon fas fa-sun"></i>
                 </span>
-                <label class="theme-switch">
-                    <input type="checkbox" class="switch-theme">
-                    <div class="slider round"></div>
-                </label>
             </div>
         </header>
 
@@ -36,7 +32,6 @@
 
                 <!-- Filter Options -->
                 <div class="filter__container">
-                    <form>
                         <!-- <label for="continents">Filter by Region</label> -->
                         <select name="continents" id="continents">
                           <option value="none">Filter by Region</option>
@@ -46,7 +41,6 @@
                           <option value="europe">Europe</option>
                           <option value="oceania">Oceania</option>
                         </select>
-                      </form>
                 </div>
 
             </section>
@@ -60,7 +54,7 @@
             <button class="back"><img class="back-arrow" src="./images/icon-left-arrow.svg">Back</button>
 
             <div class="country__card__details">
-                <div class="country__flag">
+                <div class="detailed__country__flag">
                     <span class="detailed__country__img"></span>
                 </div>
                 <div class="detailed__country__information">
