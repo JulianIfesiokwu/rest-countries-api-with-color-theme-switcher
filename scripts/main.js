@@ -88,8 +88,6 @@ function getDetailedInformation(e) {
 }
 
 const showDetailedInfo = async (targetCountry) => {
-    // Clear previous results
-    // countryContent.innerHTML = '';
     try {
         const url = `https://restcountries.eu/rest/v2/name/${targetCountry}`
         const result = await fetch(url)
