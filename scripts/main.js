@@ -30,6 +30,7 @@ const showSearchResults = async () => {
         const allCountries = await result.json()
         //search data based on client input
         refineResults(allCountries)
+        console.log(allCountries)
     }
     catch(err) {
         console.log(err)
@@ -46,7 +47,7 @@ function refineResults(allCountries) {
     selectedRegion.value = 'none'
     // Loop through country list and display only countries that meet the search term
     allCountries.forEach((country) => {
-        const countryName = (country.name).toLowerCase();
+        const countryName = (country.name.common).toLowerCase();
         if(countryName.indexOf(searchTerm) !=-1) {
             displayCountry(country)
         } 
