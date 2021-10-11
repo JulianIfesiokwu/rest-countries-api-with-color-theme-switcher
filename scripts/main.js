@@ -25,7 +25,7 @@ function showCountries(data) {
 
 const showSearchResults = async () => {
     try {
-        const url = `https://restcountries.eu/rest/v2/all`
+        const url = `https://restcountries.com/v3.1/all`
         const result = await fetch(url)
         const allCountries = await result.json()
         //search data based on client input
@@ -39,6 +39,7 @@ const showSearchResults = async () => {
 // Refine results based on countries
 function refineResults(allCountries) {
     let searchTerm = searchField.value;
+    console.log(searchTerm)
     // Clear results container of previous searches
     resultsDiv.innerHTML = '';
     // Reset region field
@@ -60,7 +61,7 @@ const showRegionCountries = async () => {
         // Reset search field value
         searchField.value = ''
         try {
-            const url = `https://restcountries.eu/rest/v2/region/${regionValue}`
+            const url = `https://restcountries.com/v3.1/region/${regionValue}`
             const result = await fetch(url)
             const regionData = await result.json()
             // Clear previous results
@@ -89,7 +90,7 @@ function getDetailedInformation(e) {
 
 const showDetailedInfo = async (targetCountry) => {
     try {
-        const url = `https://restcountries.eu/rest/v2/name/${targetCountry}`
+        const url = `https://restcountries.com/v3.1/name/${targetCountry}`
         const result = await fetch(url)
         const countryData = await result.json()
         // display results based on targetCountry
@@ -103,13 +104,13 @@ const showDetailedInfo = async (targetCountry) => {
 function showDetailedCountry(countryData) {   
     const imgSpan = document.querySelector('.detailed__country__img');
     let imgContainer = document.createElement('img');
-    imgContainer.setAttribute('src', `${countryData[0].flag}`);
-    imgContainer.setAttribute('alt', `${countryData[0].name}`);
+    imgContainer.setAttribute('src', `${countryData[0].flags.svg}`);
+    imgContainer.setAttribute('alt', `${countryData[0].name.official}`);
     imgSpan.appendChild(imgContainer);
     const countryName = document.querySelector('.country__name_2');
-    countryName.textContent=`${countryData[0].name}`;
+    countryName.textContent=`${countryData[0].name.official}`;
     const nativeName = document.querySelector('.native__name');
-    nativeName.textContent = `${countryData[0].nativeName}`;
+    nativeName.textContent = `${countryData[0].name.common}`;
     const population = document.querySelector('.population');
     population.textContent = `${thousands_separators(countryData[0].population)}`;
     const continent = document.querySelector('.continent');
@@ -119,14 +120,20 @@ function showDetailedCountry(countryData) {
     const capital = document.querySelector('.capital');
     capital.textContent = `${countryData[0].capital}`;
     const domain = document.querySelector('.domain');
-    domain.textContent = `${countryData[0].topLevelDomain}`;
+    domain.textContent = `${countryData[0].tld}`;
     const currencies = document.querySelector('.currencies');
-    currencies.textContent = `${countryData[0].currencies[0].name}`;
+    let currencyName;
+    // loop through currencies object
+    for(let key in countryData[0].currencies) {
+        currencyName = countryData[0].currencies[key].name;
+    }
+    currencies.textContent = currencyName;
     // Extract language data
     let languagesArray = [];
-    countryData[0].languages.forEach((language) => {
-        languagesArray.push(language.name)
-        });
+    // Loop through languages object and get all spoken languages
+    for (let key in countryData[0].languages) {
+        languagesArray.push( (countryData[0].languages[key]) )
+    }        
     // Convert to string
     let languagesString = languagesArray.toString();
     const languages = document.querySelector('.languages');
@@ -136,12 +143,12 @@ function showDetailedCountry(countryData) {
     // Loop through each border country code and find country name
     borderCountries.forEach(async (borderCountryCode) => {
         try {
-            const url = `https://restcountries.eu/rest/v2/alpha/${borderCountryCode}`;
+            const url = `https://restcountries.com/v3.1/alpha/${borderCountryCode}`;
             const result = await fetch(url);
             const countryName = await result.json()
             // Create span element
             let borderCountry = document.createElement('p');
-            borderCountry.textContent=`${countryName.name}`;
+            borderCountry.textContent=`${countryName[0].name.official}`;
             borderCountry.classList.add('border--countries');
             borderCountryList.append(borderCountry)
         } catch(err) {
@@ -163,15 +170,15 @@ function displayCountry(country) {
     flagContainer.classList.add('country__img');
     // Create img element and add flag
     let imgContainer = document.createElement('img');
-    imgContainer.setAttribute('src', `${country.flag}`);
-    imgContainer.setAttribute('alt', `${country.name}`);       
+    imgContainer.setAttribute('src', `${country.flags.svg}`);
+    imgContainer.setAttribute('alt', `${country.name.official}`);       
     //Create div for country information
     let countryInformation = document.createElement('div');
     countryInformation.classList.add('country__information');
     // Create h2 for title information
     let h2 = document.createElement('h2');
     h2.classList.add('country__name');
-    h2.textContent = `${country.name}`;
+    h2.textContent = `${country.name.official}`;
     // Create p element for population
     let countryPopulation = document.createElement('p');
     countryPopulation.classList.add('country__population');
@@ -198,7 +205,7 @@ function displayCountry(country) {
 // Make API request to get all countries on document load
 const getCountries = async () => {
     try {
-        const url = `https://restcountries.eu/rest/v2/all`
+        const url = `https://restcountries.com/v3.1/all`
         const result = await fetch(url)
         const data = await result.json()
         // display results
